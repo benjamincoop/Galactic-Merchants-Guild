@@ -8,9 +8,10 @@ public static class StaticData
 
     public static float PlayerMovementSpeed = 10.0f;
     public static float PlayerRotationSpeed = -100.0f;
+    public static float PlayerDriftSpeedScalar = 0.1f;
     public static float PlayerFireDelay = 0.25f;
     public static float PlayerMaxFuel = 100.0f;
-    public static float PlayerFuelConsumptionRate = 5f;
+    public static float PlayerFuelConsumptionRate = 10f;
 
     public static float PlayerRightTurnAnimThreshold = 0.1f;
     public static float PlayerLeftTurnAnimThreshold = -0.1f;

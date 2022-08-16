@@ -8,14 +8,26 @@ public class PlayerHandler : MonoBehaviour
 
     public GameObject PlayerCamera;
 
-    public GameObject Projectile;
-    public float PlayerFireDelay;
+    public GameObject Projectile; // the projectile GameObject to clone
+    public float PlayerFireDelay; // the speed at which player ship fires projectiles
+
+    // ship speed scalars
     public float PlayerMovementSpeed;
     public float PlayerRotationSpeed;
 
-    private float _fireTime = 0f;
-    private GameObject _newProjectile;
-    private bool _mapMode = false;
+    private float _fireTime = 0f; // the time since last projectile was fired
+    private GameObject _newProjectile; // placeholder into which we clone new projectile objects
+
+    private bool _mapMode = false; // hi/low camera zoom level
+
+    // the current motion of the ship
+    private float _translation;
+    private float _rotation;
+
+    // tracks the ships translation from one frame to the next
+    // used to maintain the ship's translational movement independently of rotation (i.e. when drifting)
+    private Vector3 _position;
+    private Vector3 _lastPosition;
 
     // Start is called before the first frame update
     void Start()
@@ -54,30 +66,37 @@ public class PlayerHandler : MonoBehaviour
         if(GameManager.Instance.Fuel < 0)
         {
             GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(StaticData.PlayerSpriteFileName);
+
+            // manually drift ship in a straight line (independent of rotation)
+            transform.position = new Vector3(
+                transform.position.x + (StaticData.PlayerDriftSpeedScalar * (_position.x - _lastPosition.x)),
+                transform.position.y + (StaticData.PlayerDriftSpeedScalar * (_position.y - _lastPosition.y)), 0
+            );
+            transform.Rotate(0, 0, _rotation);
+
             return;
         }
 
-        float translation = Input.GetAxis("Vertical") * PlayerMovementSpeed * Time.deltaTime;
-        float rotation = Input.GetAxis("Horizontal") * PlayerRotationSpeed * Time.deltaTime;
+        _translation = Input.GetAxis("Vertical") * PlayerMovementSpeed * Time.deltaTime;
+        _rotation = Input.GetAxis("Horizontal") * PlayerRotationSpeed * Time.deltaTime;
 
-        if(translation != 0 || rotation != 0)
+        if(_translation != 0)
         {
             GameManager.Instance.Fuel -= StaticData.PlayerFuelConsumptionRate * Time.deltaTime;
-            Debug.Log(GameManager.Instance.Fuel);
         }
 
-        if (translation > 0)
+        if (_translation > 0)
         {
             GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(StaticData.PlayerForwardSpriteFileName);
-            transform.Translate(0, translation, 0);
+            transform.Translate(0, _translation, 0);
         }
         else
         {
-            if (rotation > StaticData.PlayerRightTurnAnimThreshold)
+            if (_rotation > StaticData.PlayerRightTurnAnimThreshold)
             {
                 GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(StaticData.PlayerRightTurnSpriteFileName);
             }
-            else if (rotation < StaticData.PlayerLeftTurnAnimThreshold)
+            else if (_rotation < StaticData.PlayerLeftTurnAnimThreshold)
             {
                 GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(StaticData.PlayerLeftTurnSpriteFileName);
             }
@@ -86,7 +105,10 @@ public class PlayerHandler : MonoBehaviour
                 GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(StaticData.PlayerSpriteFileName);
             }
         }
-        transform.Rotate(0, 0, rotation);
+        transform.Rotate(0, 0, _rotation);
+
+        _lastPosition = _position;
+        _position = transform.position;
     }
 
     void HandleShooting()
