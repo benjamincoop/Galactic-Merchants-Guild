@@ -254,8 +254,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee94d2d3d6368642ab32b07d63ce82a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ProjectileMovementSpeed: 20
-  ProjectileTimeToLive: 1
+  Damage: 0
+  MoveSpeed: 5
+  TimeToLive: 5
   IsClone: 0
 --- !u!212 &58710406
 SpriteRenderer:
@@ -1177,6 +1178,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420034}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420035}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1281,6 +1283,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   PlayerOffset: {x: 0, y: 0, z: -10}
+--- !u!114 &519420035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63df9af3037ac2547ae8207e239cf806, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Paused: 0
 --- !u!1 &565594218
 GameObject:
   m_ObjectHideFlags: 0
@@ -2586,11 +2601,10 @@ GameObject:
   - component: {fileID: 1451385366}
   - component: {fileID: 1451385365}
   - component: {fileID: 1451385367}
-  - component: {fileID: 1451385368}
   - component: {fileID: 1451385370}
   - component: {fileID: 1451385369}
   m_Layer: 0
-  m_Name: Player
+  m_Name: PlayerShip
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2675,25 +2689,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6d8930011657884b81aafdc8aee60df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerCamera: {fileID: 519420028}
-  Projectile: {fileID: 2038834206}
-  PlayerFireDelay: 0.5
-  PlayerMovementSpeed: 10
-  PlayerRotationSpeed: -100
---- !u!114 &1451385368
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1451385363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63df9af3037ac2547ae8207e239cf806, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Paused: 0
+  Health: 0
+  Shields: 0
   Fuel: 100
+  FuelConsumptionRate: 20
+  MoveSpeed: 10
+  RotationSpeed: -100
+  Projectile: {fileID: 2038834206}
+  FireRate: 0.25
 --- !u!58 &1451385369
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3255,6 +3258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa07f488b68bff241a71145fd061d5ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerShip: {fileID: 1451385367}
   HealthSegments: 8
   ShieldSegments: 8
   FuelSegments: 8
@@ -3274,7 +3278,7 @@ GameObject:
   - component: {fileID: 1802262362}
   - component: {fileID: 1802262365}
   m_Layer: 0
-  m_Name: ship-thrust-1
+  m_Name: EnemyShip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3432,8 +3436,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5affe0059c018124abd3494b79474a2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Health: 0
+  Shields: 0
+  Fuel: 100
+  FuelConsumptionRate: 0
+  MoveSpeed: 0
+  RotationSpeed: 0
   Projectile: {fileID: 58710404}
-  FireDelay: 1
+  FireRate: 0.5
 --- !u!1 &1855897999
 GameObject:
   m_ObjectHideFlags: 0
@@ -3548,8 +3558,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee94d2d3d6368642ab32b07d63ce82a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ProjectileMovementSpeed: 20
-  ProjectileTimeToLive: 1
+  Damage: 0
+  MoveSpeed: 20
+  TimeToLive: 3
   IsClone: 0
 --- !u!212 &2038834208
 SpriteRenderer:

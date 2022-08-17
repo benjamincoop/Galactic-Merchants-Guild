@@ -6,8 +6,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance; // The instance of the GameManager class. Accessible to all objects.
 
+    private bool _mapMode = false; // hi/low camera zoom level
+
     public bool Paused = false;
-    public float Fuel = 100f;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,19 @@ public class GameManager : MonoBehaviour
             else
             {
                 Paused = true;
+            }
+        }
+        if (Input.GetKeyDown("m"))
+        {
+            if (_mapMode)
+            {
+                GetComponent<Camera>().orthographicSize = 10;
+                _mapMode = false;
+            }
+            else
+            {
+                GetComponent<Camera>().orthographicSize = 60;
+                _mapMode = true;
             }
         }
     }

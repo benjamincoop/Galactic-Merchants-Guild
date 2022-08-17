@@ -1,69 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class PlayerHandler : MonoBehaviour
+public class Ship : MonoBehaviour
 {
+    // core ship stats
+    public float Health;
+    public float Shields;
+    public float Fuel;
 
-    public GameObject PlayerCamera;
+    public float FuelConsumptionRate;
+
+    public float MoveSpeed; // translational speed scalar
+    public float RotationSpeed; // rotational speed scalar
 
     public GameObject Projectile; // the projectile GameObject to clone
-    public float PlayerFireDelay; // the speed at which player ship fires projectiles
-
-    // ship speed scalars
-    public float PlayerMovementSpeed;
-    public float PlayerRotationSpeed;
+    public float FireRate; // the speed at which the ship fires projectiles
 
     private float _fireTime = 0f; // the time since last projectile was fired
     private GameObject _newProjectile; // placeholder into which we clone new projectile objects
 
-    private bool _mapMode = false; // hi/low camera zoom level
-
-    // the current motion of the ship
-    private float _translation;
-    private float _rotation;
+    float _translation; // value of current translation
+    float _rotation; // value of current rotation
 
     // tracks the ships translation from one frame to the next
     // used to maintain the ship's translational movement independently of rotation (i.e. when drifting)
     private Vector3 _position;
     private Vector3 _lastPosition;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
-        if (GameManager.Instance.Paused)
-        {
-            return;
-        }
+        _fireTime += Time.deltaTime;
+    }
 
-        HandleShooting();
-        HandleMovement();
-
-        if(Input.GetKeyDown("m"))
+    public void FireWeapon()
+    {
+        if (_fireTime > FireRate)
         {
-            if(_mapMode)
-            {
-                PlayerCamera.GetComponent<Camera>().orthographicSize = 10;
-                _mapMode = false;
-            } else
-            {
-                PlayerCamera.GetComponent<Camera>().orthographicSize = 60;
-                _mapMode = true;
-            }
+            _newProjectile = Instantiate(Projectile, transform.position, transform.rotation) as GameObject;
+            _newProjectile.GetComponent<Projectile>().IsClone = true;
+            _fireTime = 0f;
         }
     }
 
-    void HandleMovement()
+    public void Move(float inputX, float inputY)
     {
-
-        if(GameManager.Instance.Fuel < 0)
+        // drift ship if it is out of fuel
+        if (Fuel < 0)
         {
             GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(StaticData.PlayerSpriteFileName);
 
@@ -77,12 +61,13 @@ public class PlayerHandler : MonoBehaviour
             return;
         }
 
-        _translation = Input.GetAxis("Vertical") * PlayerMovementSpeed * Time.deltaTime;
-        _rotation = Input.GetAxis("Horizontal") * PlayerRotationSpeed * Time.deltaTime;
+        // calculate new movement
+        _translation = inputX * MoveSpeed * Time.deltaTime;
+        _rotation = inputY * RotationSpeed * Time.deltaTime;
 
-        if(_translation != 0)
+        if (_translation != 0)
         {
-            GameManager.Instance.Fuel -= StaticData.PlayerFuelConsumptionRate * Time.deltaTime;
+            Fuel -= FuelConsumptionRate * Time.deltaTime;
         }
 
         if (_translation > 0)
@@ -107,18 +92,8 @@ public class PlayerHandler : MonoBehaviour
         }
         transform.Rotate(0, 0, _rotation);
 
+        // save last movement
         _lastPosition = _position;
         _position = transform.position;
-    }
-
-    void HandleShooting()
-    {
-        _fireTime += Time.deltaTime;
-        if (_fireTime > PlayerFireDelay && Input.GetButton("Fire1") && GameManager.Instance.Fuel > 0)
-        {
-            _newProjectile = Instantiate(Projectile, transform.position, transform.rotation) as GameObject;
-            _newProjectile.GetComponent<ProjectileHandler>().IsClone = true;
-            _fireTime = 0.0F;
-        }
     }
 }

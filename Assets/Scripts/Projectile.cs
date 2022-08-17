@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileHandler : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
-    public float ProjectileMovementSpeed;
-    public float ProjectileTimeToLive;
+    public float Damage;
+    public float MoveSpeed;
+    public float TimeToLive;
     public bool IsClone;
 
     private float _time;
@@ -27,19 +28,19 @@ public class ProjectileHandler : MonoBehaviour
         if (IsClone)
         {
             _time += Time.deltaTime;
-            if (_time > ProjectileTimeToLive)
+            if (_time > TimeToLive)
             {
                 GetComponent<SpriteRenderer>().sprite = null;
                 Destroy(this);
             }
 
-            HandleMovement();
+            Move();
         }
     }
 
-    void HandleMovement()
+    void Move()
     {
-        float translation = ProjectileMovementSpeed * Time.deltaTime;
+        float translation = MoveSpeed * Time.deltaTime;
         transform.Translate(0, translation, 0);
     }
 }

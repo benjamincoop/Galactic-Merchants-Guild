@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HudHandler : MonoBehaviour
+public class HudManager : MonoBehaviour
 {
+    public Ship PlayerShip;
+
     public int HealthSegments = 8;
     public int ShieldSegments = 8;
     public int FuelSegments = 8;
@@ -29,8 +31,8 @@ public class HudHandler : MonoBehaviour
     void Update()
     {
         // calculate number of bar segments to fill and update the sprites
-        int numFilledSegments = (int)(FuelSegments * (GameManager.Instance.Fuel / StaticData.PlayerMaxFuel));
-        Debug.Log(numFilledSegments);
+        int numFilledSegments = (int)(FuelSegments * (PlayerShip.Fuel / StaticData.PlayerMaxFuel));
+
         for(int i = 0; i < FuelSegments; i++)
         {
             if(i < numFilledSegments)

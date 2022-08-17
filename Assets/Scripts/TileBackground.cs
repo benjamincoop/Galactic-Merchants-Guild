@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackgroundTiler : MonoBehaviour
+public class TileBackground : MonoBehaviour
 {
     public GameObject Player;
     public GameObject Background;

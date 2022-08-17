@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OrbitalHandler : MonoBehaviour
+public class OrbitingBody : MonoBehaviour
 {
     public GameObject OrbitalParent;
     public Vector3 OrbitalRadius;
