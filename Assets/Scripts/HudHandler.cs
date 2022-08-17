@@ -30,9 +30,10 @@ public class HudHandler : MonoBehaviour
     {
         // calculate number of bar segments to fill and update the sprites
         int numFilledSegments = (int)(FuelSegments * (GameManager.Instance.Fuel / StaticData.PlayerMaxFuel));
+        Debug.Log(numFilledSegments);
         for(int i = 0; i < FuelSegments; i++)
         {
-            if(i <= numFilledSegments)
+            if(i < numFilledSegments)
             {
                 _fuelBar[i].GetComponent<SpriteRenderer>().sprite = _fuelSegmentSprite;
             } else
