@@ -254,10 +254,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee94d2d3d6368642ab32b07d63ce82a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 0
-  MoveSpeed: 5
-  TimeToLive: 5
-  IsClone: 0
 --- !u!212 &58710406
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2452,6 +2448,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Projectile: {fileID: 2038834206}
   FireRate: 0.1
+  Damage: 0
+  MoveSpeed: 40
+  TimeToLive: 0.5
 --- !u!212 &1356214156
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3221,6 +3220,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Projectile: {fileID: 58710404}
   FireRate: 0.5
+  Damage: 0
+  MoveSpeed: 10
+  TimeToLive: 1
 --- !u!212 &1676875785
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3760,10 +3762,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ee94d2d3d6368642ab32b07d63ce82a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 0
-  MoveSpeed: 40
-  TimeToLive: 1
-  IsClone: 0
 --- !u!212 &2038834208
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4098,3 +4096,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Projectile: {fileID: 2038834206}
   FireRate: 0.1
+  Damage: 0
+  MoveSpeed: 40
+  TimeToLive: 0.5

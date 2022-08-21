@@ -6,6 +6,9 @@ public class Weapon : MonoBehaviour
 {
     public GameObject Projectile; // the projectile GameObject to clone
     public float FireRate; // the speed at which the ship fires projectiles
+    public float Damage; // the projectile's base damage
+    public float MoveSpeed; // the speed of the projectile
+    public float TimeToLive; // the maximum length of time that the projectile can exist
 
     private float _fireTime = 0f; // the time since last projectile was fired
     private GameObject _newProjectile; // placeholder into which we clone new projectile objects
@@ -26,8 +29,15 @@ public class Weapon : MonoBehaviour
     {
         if (_fireTime > FireRate)
         {
-            _newProjectile = Instantiate(Projectile, transform.position, transform.rotation) as GameObject;
-            _newProjectile.GetComponent<Projectile>().IsClone = true;
+            _newProjectile = Instantiate(Projectile, transform.position, transform.rotation) as GameObject; // duplicate projectile sprite
+
+            // apply properties to projectile based on weapon
+            Projectile projectile = _newProjectile.GetComponent<Projectile>();
+            projectile.SetIsClone(true);
+            projectile.SetDamage(Damage);
+            projectile.SetMoveSpeed(MoveSpeed);
+            projectile.SetTimeToLive(TimeToLive);
+
             _fireTime = 0f;
         }
     }
