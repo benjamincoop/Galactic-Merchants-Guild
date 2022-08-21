@@ -16,7 +16,10 @@ public class EnemyShip : Ship
         if (!GameManager.Instance.Paused)
         {
             base.Update();
-            FireWeapon();
+            foreach(var weapon in Weapons)
+            {
+                weapon.FireWeapon();
+            }
         }
     }
 }

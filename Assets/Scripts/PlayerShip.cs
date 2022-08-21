@@ -21,7 +21,10 @@ public class PlayerShip : Ship
             Move(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
             if (Input.GetButton("Fire1") && Fuel > 0)
             {
-                FireWeapon();
+                foreach (var weapon in Weapons)
+                {
+                    weapon.FireWeapon();
+                }
             }
         }
     }
