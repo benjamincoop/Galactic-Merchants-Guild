@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class OrbitingBody : MonoBehaviour
 {
+    /// <summary>
+    /// The object around which this object orbits
+    /// </summary>
     public GameObject OrbitalParent;
+    /// <summary>
+    /// The distance at which this object orbits
+    /// </summary>
     public Vector3 OrbitalRadius;
+    /// <summary>
+    /// The speed at which this object orbits
+    /// </summary>
     public float OrbitalSpeed;
-    public string PlanetName;
 
     private float _time = 0f;
 

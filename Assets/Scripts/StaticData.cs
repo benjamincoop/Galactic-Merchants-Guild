@@ -13,8 +13,8 @@ public static class StaticData
     public static float PlayerMaxFuel = 100.0f;
     //public static float PlayerFuelConsumptionRate = 10f;
 
-    public static float PlayerRightTurnAnimThreshold = 0.1f;
-    public static float PlayerLeftTurnAnimThreshold = -0.1f;
+    public static float PlayerRightTurnAnimThreshold = 0.0005f;
+    public static float PlayerLeftTurnAnimThreshold = -0.0005f;
 
     public static string BackgroundSpriteFileName = "Art/Environment/bg_stars";
 
@@ -26,5 +26,11 @@ public static class StaticData
     public static string HudHealthSegment = "Art/UI/red_fill_bar";
     public static string HudFuelSegment = "Art/UI/green_fill_bar";
     public static string HudEmptySegment = "Art/UI/bar_segment";
+
+    public static string EnemyShipBroken1 = "Art/NPCs/Enemies/BrokenShip1";
+    public static string EnemyShipBroken2 = "Art/NPCs/Enemies/BrokenShip2";
+    public static string EnemyShipBroken3 = "Art/NPCs/Enemies/BrokenShip3";
+    public static string EnemyShipBroken4 = "Art/NPCs/Enemies/BrokenShip4";
+    public static string EnemyShipBroken5 = "Art/NPCs/Enemies/BrokenShip5";
 
 }

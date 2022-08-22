@@ -4,22 +4,48 @@ using UnityEngine;
 
 public class Ship : MonoBehaviour
 {
-    // core ship stats
+    public Rigidbody2D Rigidbody;
+
+    /// <summary>
+    /// The current health of the ship
+    /// </summary>
     public float Health;
-    public float Shields;
-    public float Fuel;
-
+    /// <summary>
+    /// The maximum health the ship can have
+    /// </summary>
     public float MaxHealth;
+    /// <summary>
+    /// The current shield level of the ship
+    /// </summary>
+    public float Shields;
+    /// <summary>
+    /// The maximum shield level the ship can have
+    /// </summary>
     public float MaxShields;
+    /// <summary>
+    /// The current fuel level of the ship
+    /// </summary>
+    public float Fuel;
+    /// <summary>
+    /// The maximum fuel the ship can hold
+    /// </summary>
     public float MaxFuel;
-
+    /// <summary>
+    /// The rate at which the ship consumes fuel while moving
+    /// </summary>
     public float FuelConsumptionRate;
-
-    public float MoveSpeed; // translational speed scalar
-    public float RotationSpeed; // rotational speed scalar
-
+    /// <summary>
+    /// The translational speed of the ship while moving
+    /// </summary>
+    public float MoveSpeed;
+    /// <summary>
+    /// The rotational speed of the ship while turning
+    /// </summary>
+    public float RotationSpeed;
+    /// <summary>
+    /// The Weapon objects the ship is equipped with
+    /// </summary>
     public Weapon[] Weapons;
-    public Collider2D Hitbox;
 
     private float _translation; // value of current translation
     private float _rotation; // value of current rotation
@@ -28,8 +54,6 @@ public class Ship : MonoBehaviour
     // used to maintain the ship's translational movement independently of rotation (i.e. when drifting)
     private Vector3 _position;
     private Vector3 _lastPosition;
-
-    public Rigidbody2D Rigidbody;
 
     // Start is called before the first frame update
     public void Start()
@@ -40,7 +64,19 @@ public class Ship : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-
+        if (Health < 1)
+        {
+            Particle.CreateParticle(StaticData.EnemyShipBroken1, transform.position, 2, 5, Random.insideUnitCircle.normalized * Random.value * 5, Random.value * 5);
+            Particle.CreateParticle(StaticData.EnemyShipBroken2, transform.position, 2, 5, Random.insideUnitCircle.normalized * Random.value * 5, Random.value * 5);
+            Particle.CreateParticle(StaticData.EnemyShipBroken3, transform.position, 2, 5, Random.insideUnitCircle.normalized * Random.value * 5, Random.value * 5);
+            Particle.CreateParticle(StaticData.EnemyShipBroken4, transform.position, 2, 5, Random.insideUnitCircle.normalized * Random.value * 5, Random.value * 5);
+            Particle.CreateParticle(StaticData.EnemyShipBroken5, transform.position, 2, 5, Random.insideUnitCircle.normalized * Random.value * 5, Random.value * 5);
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Debug.Log(Health);
+        }
     }
 
     public void Move(float inputX, float inputY)
@@ -51,13 +87,6 @@ public class Ship : MonoBehaviour
             GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(StaticData.PlayerSpriteFileName);
             Rigidbody.drag = StaticData.PlayerDriftSpeedScalar;
             Rigidbody.angularDrag = StaticData.PlayerDriftSpeedScalar;
-
-            // manually drift ship in a straight line (independent of rotation)
-           // transform.position = new Vector3(
-          //      transform.position.x + (StaticData.PlayerDriftSpeedScalar * (_position.x - _lastPosition.x)),
-         //       transform.position.y + (StaticData.PlayerDriftSpeedScalar * (_position.y - _lastPosition.y)), 0
-        //    );
-        //    transform.Rotate(0, 0, _rotation);
 
             return;
         }
@@ -74,7 +103,6 @@ public class Ship : MonoBehaviour
         if (_translation > 0)
         {
             GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(StaticData.PlayerForwardSpriteFileName);
-            //transform.Translate(0, _translation, 0);
             Rigidbody.AddForce(transform.up * _translation, ForceMode2D.Impulse);
         }
         else
@@ -92,7 +120,6 @@ public class Ship : MonoBehaviour
                 GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(StaticData.PlayerSpriteFileName);
             }
         }
-        //transform.Rotate(0, 0, _rotation);
         Rigidbody.AddTorque(_rotation, ForceMode2D.Impulse);
 
         // save last movement

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -7,15 +8,38 @@ public class Projectile : MonoBehaviour
     private float _damage;
     private float _moveSpeed;
     private float _timeToLive;
+    private string[] _targets;
     private bool _isClone = false;
 
     private float _time;
 
-    // These setters should be invoked by the Weapon class when a new projectile is created
-    public void SetDamage(float damage) { _damage = damage; }
-    public void SetMoveSpeed(float speed) { _moveSpeed = speed; }
-    public void SetTimeToLive(float ttl) { _timeToLive = ttl; }
-    public void SetIsClone(bool clone) { _isClone = clone; }
+    // These properties should be set by the Weapon class when a new projectile is created and read by the target of a collision
+    public float Damage
+    {
+        get { return _damage; }
+        set { _damage = value; }
+    }
+    public float MoveSpeed
+    {
+        get { return _moveSpeed; }
+        set { _moveSpeed = value; }
+    }
+    public float TimeToLive
+    {
+        get { return _timeToLive; }
+        set { _timeToLive = value; }
+    }
+    public string[] Targets
+    {
+        get { return _targets; }
+        set { _targets = value; }
+    }
+    public bool IsClone
+    {
+        get { return _isClone; }
+        set { _isClone = value; }
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -36,8 +60,7 @@ public class Projectile : MonoBehaviour
             _time += Time.deltaTime;
             if (_time > _timeToLive)
             {
-                GetComponent<SpriteRenderer>().sprite = null;
-                Destroy(this);
+                Destroy(this.gameObject);
             }
 
             Move();
@@ -48,5 +71,14 @@ public class Projectile : MonoBehaviour
     {
         float translation = _moveSpeed * Time.deltaTime;
         transform.Translate(0, translation, 0);
+    }
+
+    public void OnTriggerEnter2D(Collider2D collider)
+    {
+        // Destroy projectile if it collides with a valid target
+        if(_targets.Contains(collider.gameObject.tag))
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

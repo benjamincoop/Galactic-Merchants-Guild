@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class EnemyShip : Ship
 {
+    public GameObject HealthBar;
+
     // Start is called before the first frame update
     new void Start()
     {
         base.Start();
+
+        HealthBar.transform.localScale = new Vector3(MaxHealth / 10, 0.5f, 1);
     }
 
     // Update is called once per frame
@@ -16,7 +20,12 @@ public class EnemyShip : Ship
         if (!GameManager.Instance.Paused)
         {
             base.Update();
-            foreach(var weapon in Weapons)
+
+            // update size of healthbar
+            HealthBar.transform.localScale = new Vector3(Health / 10, 0.5f, 1);
+
+            // fire all weapons
+            foreach (var weapon in Weapons)
             {
                 weapon.FireWeapon();
             }
@@ -25,6 +34,13 @@ public class EnemyShip : Ship
 
     public void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log(gameObject.name + " : " + Time.time);
+        switch(collider.gameObject.tag)
+        {
+            case "PlayerProjectile":
+                Projectile projectile = collider.gameObject.GetComponent<Projectile>();
+                Health -= projectile.Damage;
+
+                break;
+        }
     }
 }

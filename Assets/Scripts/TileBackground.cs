@@ -4,11 +4,25 @@ using UnityEngine;
 
 public class TileBackground : MonoBehaviour
 {
+    /// <summary>
+    /// The player GameObject. Background is expanded depending on player position.
+    /// </summary>
     public GameObject Player;
+    /// <summary>
+    /// The background GameObject to tile
+    /// </summary>
     public GameObject Background;
-
+    /// <summary>
+    /// The distance between background tiles along the X axis
+    /// </summary>
     public int OffsetX = 30;
+    /// <summary>
+    /// The distance between background tiles along the Y axis
+    /// </summary>
     public int OffsetY = 15;
+    /// <summary>
+    /// The position of background tiles on the Z axis
+    /// </summary>
     public int DepthLayer = 3;
 
     private int _backgroundLayers = 1;
