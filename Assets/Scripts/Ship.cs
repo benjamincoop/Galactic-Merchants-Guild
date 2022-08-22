@@ -9,24 +9,38 @@ public class Ship : MonoBehaviour
     public float Shields;
     public float Fuel;
 
+    public float MaxHealth;
+    public float MaxShields;
+    public float MaxFuel;
+
     public float FuelConsumptionRate;
 
     public float MoveSpeed; // translational speed scalar
     public float RotationSpeed; // rotational speed scalar
 
     public Weapon[] Weapons;
+    public Collider2D Hitbox;
 
-    float _translation; // value of current translation
-    float _rotation; // value of current rotation
+    private float _translation; // value of current translation
+    private float _rotation; // value of current rotation
 
     // tracks the ships translation from one frame to the next
     // used to maintain the ship's translational movement independently of rotation (i.e. when drifting)
     private Vector3 _position;
     private Vector3 _lastPosition;
 
+    public Rigidbody2D Rigidbody;
+
+    // Start is called before the first frame update
+    public void Start()
+    {
+
+    }
+
     // Update is called once per frame
     public void Update()
     {
+
     }
 
     public void Move(float inputX, float inputY)
@@ -35,13 +49,15 @@ public class Ship : MonoBehaviour
         if (Fuel < 0)
         {
             GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(StaticData.PlayerSpriteFileName);
+            Rigidbody.drag = StaticData.PlayerDriftSpeedScalar;
+            Rigidbody.angularDrag = StaticData.PlayerDriftSpeedScalar;
 
             // manually drift ship in a straight line (independent of rotation)
-            transform.position = new Vector3(
-                transform.position.x + (StaticData.PlayerDriftSpeedScalar * (_position.x - _lastPosition.x)),
-                transform.position.y + (StaticData.PlayerDriftSpeedScalar * (_position.y - _lastPosition.y)), 0
-            );
-            transform.Rotate(0, 0, _rotation);
+           // transform.position = new Vector3(
+          //      transform.position.x + (StaticData.PlayerDriftSpeedScalar * (_position.x - _lastPosition.x)),
+         //       transform.position.y + (StaticData.PlayerDriftSpeedScalar * (_position.y - _lastPosition.y)), 0
+        //    );
+        //    transform.Rotate(0, 0, _rotation);
 
             return;
         }
@@ -58,7 +74,8 @@ public class Ship : MonoBehaviour
         if (_translation > 0)
         {
             GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(StaticData.PlayerForwardSpriteFileName);
-            transform.Translate(0, _translation, 0);
+            //transform.Translate(0, _translation, 0);
+            Rigidbody.AddForce(transform.up * _translation, ForceMode2D.Impulse);
         }
         else
         {
@@ -75,7 +92,8 @@ public class Ship : MonoBehaviour
                 GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>(StaticData.PlayerSpriteFileName);
             }
         }
-        transform.Rotate(0, 0, _rotation);
+        //transform.Rotate(0, 0, _rotation);
+        Rigidbody.AddTorque(_rotation, ForceMode2D.Impulse);
 
         // save last movement
         _lastPosition = _position;

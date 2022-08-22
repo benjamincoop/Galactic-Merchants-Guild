@@ -650,7 +650,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 197989519}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalPosition: {x: 0.264, y: -0.05, z: 2}
   m_LocalScale: {x: 20, y: 20, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2697,9 +2697,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1451385366}
-  - component: {fileID: 1451385365}
   - component: {fileID: 1451385367}
   - component: {fileID: 1451385370}
+  - component: {fileID: 1451385365}
   - component: {fileID: 1451385369}
   m_Layer: 0
   m_Name: PlayerShip
@@ -2768,7 +2768,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1451385363}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -66, y: 0, z: 0}
+  m_LocalPosition: {x: -73.93, y: -1.34, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2789,15 +2789,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6d8930011657884b81aafdc8aee60df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 0
+  Health: 100
   Shields: 0
   Fuel: 100
-  FuelConsumptionRate: 0
-  MoveSpeed: 10
-  RotationSpeed: -100
+  MaxHealth: 0
+  MaxShields: 0
+  MaxFuel: 0
+  FuelConsumptionRate: 10
+  MoveSpeed: 20
+  RotationSpeed: -0.5
   Weapons:
   - {fileID: 2135874821}
   - {fileID: 1356214155}
+  Hitbox: {fileID: 1451385369}
+  Rigidbody: {fileID: 1451385370}
 --- !u!58 &1451385369
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2808,7 +2813,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.17090759}
@@ -2822,14 +2827,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1451385363}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_LinearDrag: 2
+  m_AngularDrag: 4
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -3474,12 +3479,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1802262361}
+  - component: {fileID: 1802262365}
+  - component: {fileID: 1802262364}
   - component: {fileID: 1802262360}
   - component: {fileID: 1802262359}
-  - component: {fileID: 1802262364}
   - component: {fileID: 1802262363}
-  - component: {fileID: 1802262362}
-  - component: {fileID: 1802262365}
   m_Layer: 0
   m_Name: EnemyShip
   m_TagString: Untagged
@@ -3575,22 +3579,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &1802262362
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1802262358}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 5
 --- !u!70 &1802262363
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -3601,7 +3589,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.21087785, y: -0.07998858}
@@ -3615,14 +3603,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1802262358}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_Mass: 10
+  m_LinearDrag: 2
+  m_AngularDrag: 5
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -3643,11 +3631,16 @@ MonoBehaviour:
   Health: 0
   Shields: 0
   Fuel: 100
+  MaxHealth: 0
+  MaxShields: 0
+  MaxFuel: 0
   FuelConsumptionRate: 0
   MoveSpeed: 0
   RotationSpeed: 0
   Weapons:
   - {fileID: 1676875784}
+  Hitbox: {fileID: 1802262363}
+  Rigidbody: {fileID: 0}
 --- !u!1 &1855897999
 GameObject:
   m_ObjectHideFlags: 0
@@ -3743,6 +3736,8 @@ GameObject:
   - component: {fileID: 2038834209}
   - component: {fileID: 2038834208}
   - component: {fileID: 2038834207}
+  - component: {fileID: 2038834211}
+  - component: {fileID: 2038834210}
   m_Layer: 0
   m_Name: PlayerProjectile
   m_TagString: Untagged
@@ -3822,13 +3817,50 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2038834206}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.7170944, y: -4.2082005, z: 5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -5.142, y: -4.225, z: 5}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &2038834210
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038834206}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.00838922, y: -0.020973444}
+  m_Size: {x: 0.06537005, y: 0.6257043}
+  m_Direction: 0
+--- !u!50 &2038834211
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038834206}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &2069380212
 GameObject:
   m_ObjectHideFlags: 0
