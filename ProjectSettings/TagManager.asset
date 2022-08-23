@@ -9,6 +9,7 @@ TagManager:
   - FuelBar
   - PlayerProjectile
   - Enemy
+  - EnemyProjectile
   layers:
   - Default
   - TransparentFX

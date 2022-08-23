@@ -273,9 +273,11 @@ GameObject:
   - component: {fileID: 58710407}
   - component: {fileID: 58710406}
   - component: {fileID: 58710405}
+  - component: {fileID: 58710409}
+  - component: {fileID: 58710408}
   m_Layer: 0
   m_Name: EnemyProjectile
-  m_TagString: Untagged
+  m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -359,6 +361,43 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &58710408
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58710404}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0062024593, y: -0.018606901}
+  m_Size: {x: 0.05929613, y: 0.55988264}
+  m_Direction: 0
+--- !u!50 &58710409
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58710404}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &93786763
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,10 +850,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Projectile: {fileID: 58710404}
   FireRate: 0.5
-  Damage: 0
+  Damage: 10
   MoveSpeed: 10
   TimeToLive: 1
-  Targets: []
+  Targets:
+  - Player
 --- !u!212 &186841113
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3235,6 +3275,12 @@ MonoBehaviour:
   RotationSpeed: 0
   Weapons:
   - {fileID: 1929746446}
+  WreakageTextures:
+  - Art/NPCs/Enemies/BrokenShip1
+  - Art/NPCs/Enemies/BrokenShip2
+  - Art/NPCs/Enemies/BrokenShip3
+  - Art/NPCs/Enemies/BrokenShip4
+  - Art/NPCs/Enemies/BrokenShip5
   HealthBar: {fileID: 138491275}
 --- !u!4 &1433821129
 Transform:
@@ -3367,6 +3413,10 @@ MonoBehaviour:
   Weapons:
   - {fileID: 2135874821}
   - {fileID: 1356214155}
+  WreakageTextures:
+  - Art/Player/BrokenPlayerShip1
+  - Art/Player/BrokenPlayerShip2
+  - Art/Player/BrokenPlayerShip3
 --- !u!58 &1451385369
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3788,10 +3838,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Projectile: {fileID: 58710404}
   FireRate: 0.5
-  Damage: 0
+  Damage: 10
   MoveSpeed: 10
   TimeToLive: 1
-  Targets: []
+  Targets:
+  - Player
 --- !u!212 &1676875785
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4205,6 +4256,12 @@ MonoBehaviour:
   RotationSpeed: 0
   Weapons:
   - {fileID: 1676875784}
+  WreakageTextures:
+  - Art/NPCs/Enemies/BrokenShip1
+  - Art/NPCs/Enemies/BrokenShip2
+  - Art/NPCs/Enemies/BrokenShip3
+  - Art/NPCs/Enemies/BrokenShip4
+  - Art/NPCs/Enemies/BrokenShip5
   HealthBar: {fileID: 1093040974}
 --- !u!1 &1839311768
 GameObject:
@@ -4360,6 +4417,12 @@ MonoBehaviour:
   RotationSpeed: 0
   Weapons:
   - {fileID: 186841112}
+  WreakageTextures:
+  - Art/NPCs/Enemies/BrokenShip1
+  - Art/NPCs/Enemies/BrokenShip2
+  - Art/NPCs/Enemies/BrokenShip3
+  - Art/NPCs/Enemies/BrokenShip4
+  - Art/NPCs/Enemies/BrokenShip5
   HealthBar: {fileID: 181299624}
 --- !u!4 &1839311774
 Transform:
@@ -4494,10 +4557,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Projectile: {fileID: 58710404}
   FireRate: 0.5
-  Damage: 0
+  Damage: 10
   MoveSpeed: 10
   TimeToLive: 1
-  Targets: []
+  Targets:
+  - Player
 --- !u!212 &1929746447
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -46,6 +46,10 @@ public class Ship : MonoBehaviour
     /// The Weapon objects the ship is equipped with
     /// </summary>
     public Weapon[] Weapons;
+    /// <summary>
+    /// The filenames of the textures to use when this ship is broken apart
+    /// </summary>
+    public string[] WreakageTextures;
 
     private float _translation; // value of current translation
     private float _rotation; // value of current rotation
@@ -64,18 +68,14 @@ public class Ship : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
+        // destroy ship
         if (Health < 1)
         {
-            Particle.CreateParticle(StaticData.EnemyShipBroken1, transform.position, 2, 5, Random.insideUnitCircle.normalized * Random.value * 5, Random.value * 5);
-            Particle.CreateParticle(StaticData.EnemyShipBroken2, transform.position, 2, 5, Random.insideUnitCircle.normalized * Random.value * 5, Random.value * 5);
-            Particle.CreateParticle(StaticData.EnemyShipBroken3, transform.position, 2, 5, Random.insideUnitCircle.normalized * Random.value * 5, Random.value * 5);
-            Particle.CreateParticle(StaticData.EnemyShipBroken4, transform.position, 2, 5, Random.insideUnitCircle.normalized * Random.value * 5, Random.value * 5);
-            Particle.CreateParticle(StaticData.EnemyShipBroken5, transform.position, 2, 5, Random.insideUnitCircle.normalized * Random.value * 5, Random.value * 5);
+            foreach(string wreckage in WreakageTextures)
+            {
+                Particle.CreateParticle(wreckage, transform.position, 2, 5, Random.insideUnitCircle.normalized * Random.value * 5, Random.value * 5);
+            }
             Destroy(this.gameObject);
-        }
-        else
-        {
-            Debug.Log(Health);
         }
     }
 

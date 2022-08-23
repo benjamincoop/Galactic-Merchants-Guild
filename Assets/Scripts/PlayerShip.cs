@@ -28,4 +28,16 @@ public class PlayerShip : Ship
             }
         }
     }
+
+    public void OnTriggerEnter2D(Collider2D collider)
+    {
+        switch (collider.gameObject.tag)
+        {
+            case "EnemyProjectile":
+                Projectile projectile = collider.gameObject.GetComponent<Projectile>();
+                Health -= projectile.Damage;
+
+                break;
+        }
+    }
 }
