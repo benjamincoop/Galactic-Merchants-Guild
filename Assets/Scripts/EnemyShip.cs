@@ -37,9 +37,7 @@ public class EnemyShip : Ship
         switch(collider.gameObject.tag)
         {
             case "PlayerProjectile":
-                Projectile projectile = collider.gameObject.GetComponent<Projectile>();
-                Health -= projectile.Damage;
-
+                TakeHit(collider.gameObject.GetComponent<Projectile>());
                 break;
         }
     }

@@ -58,6 +58,9 @@ public class Ship : MonoBehaviour
     // used to maintain the ship's translational movement independently of rotation (i.e. when drifting)
     private Vector3 _position;
     private Vector3 _lastPosition;
+    private bool _isHit = false;
+    private float _hitIndicatorTime = 0f;
+
 
     // Start is called before the first frame update
     public void Start()
@@ -68,6 +71,18 @@ public class Ship : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
+        if(_isHit)
+        {
+            if (_hitIndicatorTime > 0)
+            {
+                _hitIndicatorTime -= Time.deltaTime;
+            } else
+            {
+                _isHit = false;
+                GetComponent<SpriteRenderer>().color = Color.white;
+            }
+        }
+
         // destroy ship
         if (Health < 1)
         {
@@ -125,5 +140,14 @@ public class Ship : MonoBehaviour
         // save last movement
         _lastPosition = _position;
         _position = transform.position;
+    }
+
+    public void TakeHit(Projectile projectile)
+    {
+        _isHit = true;
+        _hitIndicatorTime = 0.1f;
+        GetComponent<SpriteRenderer>().color = Color.red;
+
+        Health -= projectile.Damage;
     }
 }
