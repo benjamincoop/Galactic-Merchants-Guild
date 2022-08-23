@@ -25,6 +25,14 @@ public class Weapon : MonoBehaviour
     /// </summary>
     public float TimeToLive;
     /// <summary>
+    /// indicates if projectiles will actively track nearby targets
+    /// </summary>
+    public bool IsHoming;
+    /// <summary>
+    /// The maximum distance at which homing projectiles can track a target;
+    /// </summary>
+    public float TrackingDistance;
+    /// <summary>
     /// the list of GameObject tags that denote valid collison targets for projectiles
     /// </summary>
     public string[] Targets;
@@ -57,6 +65,8 @@ public class Weapon : MonoBehaviour
             projectile.MoveSpeed = MoveSpeed;
             projectile.TimeToLive = TimeToLive;
             projectile.Targets = Targets;
+            projectile.IsHoming = IsHoming;
+            projectile.TrackingDistance = TrackingDistance;
 
             _fireTime = 0f;
         }

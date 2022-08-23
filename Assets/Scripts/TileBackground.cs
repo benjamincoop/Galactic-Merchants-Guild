@@ -65,6 +65,8 @@ public class TileBackground : MonoBehaviour
     // Returns true if the background needs to be expanded
     bool CheckForExpansion()
     {
+        if(Player == null) { return false; }
+
         if(Mathf.Abs(Vector3.Distance(Player.transform.position, Vector3.zero)) > (OffsetY / 2) * _backgroundLayers)
         {
             return true;
