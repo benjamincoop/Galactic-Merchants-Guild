@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerShip : Ship
 {
+    public int Money;
+
     // Start is called before the first frame update
     new void Start()
     {
@@ -14,6 +16,7 @@ public class PlayerShip : Ship
     // Update is called once per frame
     new void Update()
     {
+        Debug.Log(Money);
         if (!GameManager.Instance.Paused)
         {
             base.Update();
@@ -36,6 +39,24 @@ public class PlayerShip : Ship
             case "EnemyProjectile":
             case "Asteroid":
                 TakeHit(collider.gameObject.GetComponent<Projectile>());
+                break;
+            case "Pickup":
+                switch(collider.gameObject.GetComponent<Pickup>().Type)
+                {
+                    case "Coin":
+                        Money += 1;
+                        break;
+                    case "Fuel":
+                        if (Fuel + 50 < MaxFuel)
+                        {
+                            Fuel += 50;
+                        }
+                        else
+                        {
+                            Fuel = MaxFuel;
+                        }
+                        break;
+                }
                 break;
         }
     }

@@ -10,6 +10,7 @@ TagManager:
   - EnemyProjectile
   - Merchant
   - Asteroid
+  - Pickup
   layers:
   - Default
   - TransparentFX
