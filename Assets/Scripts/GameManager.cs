@@ -24,10 +24,12 @@ public class GameManager : MonoBehaviour
             if (Paused)
             {
                 Paused = false;
+                Time.timeScale = 1;
             }
             else
             {
                 Paused = true;
+                Time.timeScale = 0;
             }
         }
         if (Input.GetKeyDown("m"))

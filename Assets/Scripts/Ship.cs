@@ -61,6 +61,10 @@ public class Ship : MonoBehaviour
     private bool _isHit = false;
     private float _hitIndicatorTime = 0f;
 
+    // tracks the ship's velocity from one frame to the next
+    // sudden changes in velocity indicate a damaging collision
+    private float _velocity = 0f;
+    private float _lastVelocity = 0f;
 
     // Start is called before the first frame update
     public void Start()
@@ -137,17 +141,35 @@ public class Ship : MonoBehaviour
         }
         Rigidbody.AddTorque(_rotation, ForceMode2D.Impulse);
 
+        // check for sudden spikes in ship velocity
+        float oof = Mathf.Abs(_velocity - _lastVelocity);
+        if(oof > 5 && _isHit == false)
+        {
+            TakeHit(null, MaxHealth / 4);
+        }
+
         // save last movement
         _lastPosition = _position;
         _position = transform.position;
+
+        // save last velocity
+        _lastVelocity = _velocity;
+        _velocity = Rigidbody.velocity.magnitude;
     }
 
-    public void TakeHit(Projectile projectile)
+    // Activates hit indicator and deals damage to ship based on projectile damage or given override value
+    public void TakeHit(Projectile projectile, float damage = 0)
     {
         _isHit = true;
         _hitIndicatorTime = 0.1f;
         GetComponent<SpriteRenderer>().color = Color.red;
-
-        Health -= projectile.Damage;
+        
+        if(projectile)
+        {
+            Health -= projectile.Damage;
+        } else
+        {
+            Health -= damage;
+        }
     }
 }

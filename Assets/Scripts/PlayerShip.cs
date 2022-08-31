@@ -34,6 +34,7 @@ public class PlayerShip : Ship
         switch (collider.gameObject.tag)
         {
             case "EnemyProjectile":
+            case "Asteroid":
                 TakeHit(collider.gameObject.GetComponent<Projectile>());
                 break;
         }
